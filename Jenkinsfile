@@ -12,8 +12,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh 'echo "BRANCH_NAME=${BRANCH_NAME}"'
-                sh 'git rev-parse --abbrev-ref HEAD'
+                script {
+                    env.GIT_BRANCH_LOCAL = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                }
             }
         }
 
@@ -69,7 +70,7 @@ pipeline {
 
         stage('Deploy Prod') {
             when {
-                branch 'main'
+                expression { env.GIT_BRANCH_LOCAL == 'main' }
             }
             steps {
                 input message: "Déployer en production ?", ok: "Déployer"
