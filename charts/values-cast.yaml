@@ -1,0 +1,19 @@
+fullnameOverride: cast-service
+
+image:
+  repository: julienmilonsesan/cast-service
+  tag: "latest"
+
+imagePullSecrets: []
+
+service:
+  type: NodePort
+  port: 8000
+  nodePort: 30002
+  targetPort: 8000
+
+env:
+  - name: DATABASE_URI
+    value: "postgresql://cast_db_username:cast_db_password@cast-db/cast_db_dev"
+
+healthCheckPath: "/api/v1/casts/docs"
