@@ -15,3 +15,5 @@ service:
 env:
   - name: DATABASE_URI
     value: "postgresql://cast_db_username:cast_db_password@cast-db/cast_db_dev"
+
+healthCheckPath: "/api/v1/casts/docs"
