@@ -12,6 +12,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                sh 'echo "BRANCH_NAME=${BRANCH_NAME}"'
+                sh 'git rev-parse --abbrev-ref HEAD'
             }
         }
 
